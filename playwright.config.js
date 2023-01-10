@@ -1,5 +1,5 @@
 // @ts-check
-const { devices } = require("@playwright/test");
+import { devices } from "@playwright/test";
 
 /**
  * Read environment variables from file.
@@ -9,9 +9,18 @@ const { devices } = require("@playwright/test");
 
 /**
  * @see https://playwright.dev/docs/test-configuration
- * @type {import('@playwright/test').PlaywrightTestConfig}
  */
 const config = {
+  use: {
+    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
+    actionTimeout: 0,
+    /* Base URL to use in actions like `await page.goto('/')`. */
+    baseURL: "https://the-internet.herokuapp.com",
+
+    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    trace: "on-first-retry",
+    testIdAttribute: "",
+  },
   testDir: "./tests",
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
@@ -33,15 +42,9 @@ const config = {
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "https://the-internet.herokuapp.com/",
+  // use: {
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
-  },
+  // },
 
   /* Configure projects for major browsers */
   projects: [
