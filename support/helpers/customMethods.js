@@ -47,3 +47,14 @@ export async function interactWithJSAlert(
   await page.locator(`text=Click for JS ${alertType}`).click();
   await expect(page.locator("#result")).toHaveText(expectedResultText);
 }
+
+export async function checkValueOfEachKey(arr, result, inputField) {
+  for (const key in arr) {
+    const browser = await chromium.launch();
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.keyboard.press(key);
+    await expect(page.locator(result)).toHaveText(`You entered: ${arr[key]}`);
+    await page.locator(inputField).clear();
+  }
+}
